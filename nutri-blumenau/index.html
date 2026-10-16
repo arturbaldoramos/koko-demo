@@ -36,6 +36,9 @@
   .wrap{width:min(1100px,100% - 2.5rem); margin-inline:auto}
   .narrow{max-width:62ch}
   section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+  /* a faixa de demonstração é sticky: compensa a altura dela ao pular por âncora */
+  section[id],div[id]{scroll-margin-top:92px}
+  @media(max-width:860px){section[id],div[id]{scroll-margin-top:118px}}
   .eyebrow{
     font-size:.74rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
     color:var(--clay); margin:0 0 1.1rem
@@ -46,18 +49,24 @@
     position:sticky; top:0; z-index:60; background:#241E1B; color:#F4EDE5;
     font-size:.82rem; line-height:1.45;
   }
-  .demobar .wrap{display:flex; gap:1rem; align-items:center; justify-content:space-between;
-    padding:.6rem 0; flex-wrap:wrap}
+  .demobar .wrap{display:flex; gap:.9rem; align-items:center; justify-content:space-between;
+    padding:.55rem 0; flex-wrap:wrap}
   .demobar b{color:#fff; font-weight:600}
   .demobar .dot{display:inline-block; width:7px; height:7px; border-radius:50%;
-    background:#E0A24B; margin-right:.5rem; vertical-align:middle}
+    background:#E0A24B; margin-right:.45rem; vertical-align:middle}
   .toggle{
-    display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; flex-shrink:0;
+    display:inline-flex; align-items:center; gap:.45rem; cursor:pointer; flex-shrink:0;
+    white-space:nowrap; line-height:1;
     background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
-    color:#F4EDE5; font:inherit; font-size:.78rem; padding:.34rem .7rem; border-radius:99px;
+    color:#F4EDE5; font:inherit; font-size:.76rem; padding:.42rem .75rem; border-radius:99px;
   }
   .toggle:hover{background:rgba(255,255,255,.15)}
-  .toggle input{accent-color:#E0A24B; margin:0}
+  .toggle input{accent-color:#E0A24B; margin:0; width:13px; height:13px}
+  @media(max-width:860px){
+    .demobar{font-size:.76rem}
+    .demobar .wrap{gap:.6rem; padding:.5rem 0}
+    .wide-only{display:none}
+  }
 
   /* ---------- marcação de conteúdo de exemplo ---------- */
   .ph{
@@ -132,6 +141,7 @@
   .portrait svg{width:34px; height:34px; color:var(--ink-3); opacity:.6}
   .portrait .t1{font-family:var(--serif); font-size:1.08rem; color:var(--ink-2)}
   .portrait .t2{font-size:.78rem; color:var(--ink-3); line-height:1.45; max-width:22ch}
+  @media(max-width:880px){.portrait .blob{inset:-4% -5% 7% 7%}}
 
   /* ---------- faixa de fatos ---------- */
   .facts{border-block:1px solid var(--line); background:var(--sand)}
@@ -223,6 +233,7 @@
     align-items:start}
   @media(max-width:880px){.contact .grid{grid-template-columns:1fr}}
   .contact p{color:#CBBDB1}
+  .contact h2 + p{margin-top:1.3rem; max-width:40ch}
   .contact .btn-wa{background:#E0A24B; color:#241E1B; margin-top:1.4rem}
   .contact .btn-wa:hover{background:#EDB365}
   .contact .waline{font-size:.9rem; margin-top:1rem; color:#9C8D80}
@@ -281,8 +292,8 @@
   <div class="wrap">
     <div>
       <span class="dot"></span><b>Demonstração.</b>
-      Proposta de site criada pela <b>Koko</b> a partir de informação pública.
-      Não é o site oficial de Sarah Pettenati, não foi encomendado por ela e não está indexado em buscadores.
+      Proposta de site criada pela <b>Koko</b> — não é o site oficial de Sarah Pettenati<span class="wide-only">,
+      não foi encomendado por ela e não está indexado em buscadores</span>.
     </div>
     <label class="toggle">
       <input type="checkbox" id="phToggle">
