@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Demonstração — proposta de site (Koko)</title>
+<meta name="description" content="Demonstração privada. Proposta de site criada pela Koko. Não é um site oficial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F2; --sand:#F3EAE0; --sand-2:#EDE1D4;
+    --ink:#2A2320; --ink-2:#564a42; --ink-3:#8a7b70;
+    --clay:#BC5F3B; --clay-2:#9C4A2A; --clay-wash:#F6E6DD;
+    --sage:#6F8365; --sage-wash:#E9EEE4;
+    --line:#E3D6C7; --line-2:#D3C2AF;
+    --flag:#B8791A; --flag-wash:#FBF0DC;
+    --r:14px;
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:var(--sans); font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:500; line-height:1.12; letter-spacing:-.015em; margin:0}
+  p{margin:0 0 1em}
+  a{color:inherit}
+  .wrap{width:min(1100px,100% - 2.5rem); margin-inline:auto}
+  .narrow{max-width:62ch}
+  section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+  .eyebrow{
+    font-size:.74rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--clay); margin:0 0 1.1rem
+  }
+
+  /* ---------- faixa de demonstração ---------- */
+  .demobar{
+    position:sticky; top:0; z-index:60; background:#241E1B; color:#F4EDE5;
+    font-size:.82rem; line-height:1.45;
+  }
+  .demobar .wrap{display:flex; gap:1rem; align-items:center; justify-content:space-between;
+    padding:.6rem 0; flex-wrap:wrap}
+  .demobar b{color:#fff; font-weight:600}
+  .demobar .dot{display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:#E0A24B; margin-right:.5rem; vertical-align:middle}
+  .toggle{
+    display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; flex-shrink:0;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    color:#F4EDE5; font:inherit; font-size:.78rem; padding:.34rem .7rem; border-radius:99px;
+  }
+  .toggle:hover{background:rgba(255,255,255,.15)}
+  .toggle input{accent-color:#E0A24B; margin:0}
+
+  /* ---------- marcação de conteúdo de exemplo ---------- */
+  .ph{
+    border-bottom:1.5px dashed var(--flag);
+    background:linear-gradient(transparent 62%, var(--flag-wash) 62%);
+    padding:0 .1em; transition:background .2s;
+  }
+  .ph::after{
+    content:"exemplo"; font-family:var(--sans); font-size:.58em; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--flag);
+    vertical-align:.55em; margin-left:.3em; white-space:nowrap;
+  }
+  .phblock{
+    position:relative; border:1.5px dashed var(--line-2); border-radius:var(--r);
+    background:var(--flag-wash); padding:1.4rem 1.5rem; transition:border-color .2s;
+  }
+  .phblock > .tag{
+    display:inline-block; font-size:.66rem; font-weight:600; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--flag); margin-bottom:.5rem;
+  }
+  body.hi .ph{background:#FBDFA8; border-bottom-color:var(--clay)}
+  body.hi .phblock{border-color:var(--flag); border-style:solid; box-shadow:0 0 0 4px var(--flag-wash)}
+
+  /* ---------- cabeçalho ---------- */
+  .topnav .wrap{display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.5rem 0}
+  .mark{font-family:var(--serif); font-size:1.12rem; font-weight:600; letter-spacing:-.01em;
+    text-decoration:none; line-height:1.2}
+  .mark span{display:block; font-family:var(--sans); font-size:.68rem; font-weight:500;
+    letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); margin-top:.2rem}
+  .navlinks{display:flex; gap:1.6rem; font-size:.9rem}
+  .navlinks a{text-decoration:none; color:var(--ink-2)}
+  .navlinks a:hover{color:var(--clay)}
+  @media(max-width:860px){.navlinks{display:none}}
+
+  /* ---------- botões ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:.55rem; text-decoration:none;
+    font-weight:600; font-size:.95rem; padding:.82rem 1.4rem; border-radius:99px;
+    border:1.5px solid transparent; cursor:pointer; font-family:var(--sans);
+    transition:transform .12s ease, background .15s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-wa{background:var(--clay); color:#fff}
+  .btn-wa:hover{background:var(--clay-2)}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line-2)}
+  .btn-ghost:hover{border-color:var(--ink); background:#fff}
+  .btn svg{width:18px; height:18px; flex-shrink:0}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(1.5rem,4vw,3rem); padding-bottom:clamp(2.5rem,6vw,4rem)}
+  .hero .grid{display:grid; grid-template-columns:1.25fr .85fr; gap:clamp(2rem,5vw,4.5rem);
+    align-items:center}
+  @media(max-width:880px){.hero .grid{grid-template-columns:1fr; gap:2.5rem}}
+  .hero h1{font-size:clamp(2.5rem,6.2vw,4.1rem)}
+  .hero .lead{font-size:clamp(1.08rem,1.9vw,1.24rem); color:var(--ink-2); max-width:34ch;
+    margin-top:1.4rem}
+  .hero .cta{display:flex; gap:.8rem; flex-wrap:wrap; margin-top:2rem}
+
+  .portrait{position:relative; justify-self:center; width:min(330px,100%)}
+  .portrait .blob{
+    position:absolute; inset:-7% -9% 8% 6%; border-radius:999px 999px 40% 40%;
+    background:var(--sage-wash); z-index:0;
+  }
+  .portrait .frame{
+    position:relative; z-index:1; aspect-ratio:3/3.7;
+    border:2px dashed var(--line-2); border-radius:999px 999px 18px 18px;
+    background:var(--sand); display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:2rem 1.6rem; gap:.7rem;
+  }
+  body.hi .portrait .frame{border-color:var(--flag); border-style:solid}
+  .portrait svg{width:34px; height:34px; color:var(--ink-3); opacity:.6}
+  .portrait .t1{font-family:var(--serif); font-size:1.08rem; color:var(--ink-2)}
+  .portrait .t2{font-size:.78rem; color:var(--ink-3); line-height:1.45; max-width:22ch}
+
+  /* ---------- faixa de fatos ---------- */
+  .facts{border-block:1px solid var(--line); background:var(--sand)}
+  .facts .wrap{display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:1.6rem 0}
+  @media(max-width:760px){.facts .wrap{grid-template-columns:1fr; gap:1rem}}
+  .fact{display:flex; gap:.7rem; align-items:flex-start; font-size:.93rem; color:var(--ink-2)}
+  .fact svg{width:17px; height:17px; color:var(--clay); flex-shrink:0; margin-top:.25rem}
+  .fact b{color:var(--ink); font-weight:600}
+
+  /* ---------- citação ---------- */
+  .quote{background:var(--cream)}
+  .quote blockquote{
+    margin:0; font-family:var(--serif); font-size:clamp(1.5rem,3.4vw,2.2rem);
+    line-height:1.3; max-width:22ch; position:relative; padding-left:1.6rem;
+    border-left:3px solid var(--clay);
+  }
+  .quote cite{display:block; font-style:normal; font-family:var(--sans); font-size:.85rem;
+    color:var(--ink-3); margin-top:1.1rem; padding-left:1.7rem}
+
+  /* ---------- comparação ---------- */
+  .hinge{background:var(--sand)}
+  .hinge h2{font-size:clamp(1.9rem,4.2vw,2.8rem); max-width:18ch}
+  .hinge .intro{margin-top:1.4rem; color:var(--ink-2); max-width:58ch}
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin-top:2.8rem}
+  @media(max-width:800px){.cols{grid-template-columns:1fr}}
+  .col{background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:1.8rem}
+  .col.accent{background:var(--clay-wash); border-color:#E6C7B6}
+  .col h3{font-size:1.18rem; margin-bottom:1.2rem}
+  .col .kicker{font-size:.7rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-3); display:block; margin-bottom:.45rem}
+  .col.accent .kicker{color:var(--clay)}
+  .col ul{list-style:none; margin:0; padding:0; display:grid; gap:.85rem}
+  .col li{display:flex; gap:.7rem; font-size:.97rem; color:var(--ink-2); line-height:1.5}
+  .col li svg{width:16px; height:16px; flex-shrink:0; margin-top:.3rem; opacity:.85}
+  .col li svg.x{color:var(--ink-3)}
+  .col li svg.c{color:var(--sage)}
+
+  /* ---------- etapas ---------- */
+  .steps h2{font-size:clamp(1.9rem,4.2vw,2.8rem); max-width:16ch}
+  .steps .intro{margin-top:1.4rem; color:var(--ink-2); max-width:58ch}
+  .steplist{margin-top:3rem; display:grid; gap:0}
+  .step{display:grid; grid-template-columns:4.5rem 1fr; gap:1.6rem;
+    padding:2rem 0; border-top:1px solid var(--line)}
+  .step:last-child{border-bottom:1px solid var(--line)}
+  @media(max-width:620px){.step{grid-template-columns:1fr; gap:.6rem}}
+  .step .n{font-family:var(--serif); font-size:2.3rem; color:var(--clay); line-height:1;
+    opacity:.75}
+  .step h3{font-size:1.3rem; margin-bottom:.7rem}
+  .step p{color:var(--ink-2); margin:0; max-width:56ch}
+  .step p + p{margin-top:.7rem}
+
+  /* ---------- serviços ---------- */
+  .services{background:var(--sand)}
+  .services h2{font-size:clamp(1.9rem,4.2vw,2.8rem)}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:2.6rem}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:1.7rem}
+  .card h3{font-size:1.16rem; margin-bottom:.7rem}
+  .card p{font-size:.95rem; color:var(--ink-2); margin:0}
+  .note-inline{margin-top:2rem; font-size:.95rem; color:var(--ink-2)}
+
+  /* ---------- atendimento ---------- */
+  .where .grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,4vw,3.5rem)}
+  @media(max-width:860px){.where .grid{grid-template-columns:1fr}}
+  .where h2{font-size:clamp(1.9rem,4.2vw,2.8rem); margin-bottom:2.4rem}
+  .where h3{font-size:1.25rem; margin-bottom:1rem}
+  .addr{font-size:.98rem; color:var(--ink-2); line-height:1.75; margin:0 0 1.2rem}
+  .addr strong{color:var(--ink)}
+  .mapbox{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--sand)}
+  .mapbox iframe{display:block; width:100%; height:270px; border:0; filter:saturate(.8)}
+  .mapcap{font-size:.76rem; color:var(--ink-3); padding:.6rem .85rem; border-top:1px solid var(--line);
+    background:#fff}
+  .mapcap a{color:var(--ink-3)}
+  .hours{list-style:none; margin:0; padding:0; font-size:.96rem; color:var(--ink-2)}
+  .hours li{display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0;
+    border-bottom:1px solid var(--line)}
+  .hours li:last-child{border-bottom:0}
+
+  /* ---------- prova social reservada ---------- */
+  .social .phblock{max-width:64ch}
+  .social h3{font-size:1.2rem; margin-bottom:.6rem}
+  .social p{font-size:.96rem; color:var(--ink-2); margin:0}
+
+  /* ---------- contato ---------- */
+  .contact{background:var(--ink); color:#F6EFE7}
+  .contact h2{font-size:clamp(1.9rem,4.2vw,2.8rem); color:#fff; max-width:16ch}
+  .contact .eyebrow{color:#E0A24B}
+  .contact .grid{display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(2rem,5vw,4rem);
+    align-items:start}
+  @media(max-width:880px){.contact .grid{grid-template-columns:1fr}}
+  .contact p{color:#CBBDB1}
+  .contact .btn-wa{background:#E0A24B; color:#241E1B; margin-top:1.4rem}
+  .contact .btn-wa:hover{background:#EDB365}
+  .contact .waline{font-size:.9rem; margin-top:1rem; color:#9C8D80}
+  form{background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12);
+    border-radius:var(--r); padding:1.7rem}
+  .field{margin-bottom:1rem}
+  label{display:block; font-size:.82rem; font-weight:500; color:#CBBDB1; margin-bottom:.4rem}
+  input,textarea{
+    width:100%; font:inherit; font-size:.95rem; padding:.72rem .9rem; border-radius:9px;
+    border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#F6EFE7;
+  }
+  input:focus,textarea:focus{outline:2px solid #E0A24B; outline-offset:1px; border-color:transparent}
+  textarea{resize:vertical; min-height:96px}
+  .lgpd{font-size:.78rem; color:#9C8D80; line-height:1.55; margin:.9rem 0 1.2rem}
+  .lgpd a{color:#CBBDB1}
+  form .btn{width:100%; justify-content:center; background:#F6EFE7; color:var(--ink)}
+  .formmsg{display:none; margin-top:.9rem; font-size:.87rem; line-height:1.55;
+    background:rgba(224,162,75,.14); border:1px solid rgba(224,162,75,.4);
+    color:#EFD6AF; border-radius:9px; padding:.8rem .95rem}
+  .formmsg.on{display:block}
+
+  /* ---------- rodapé ---------- */
+  footer{background:var(--sand-2); border-top:1px solid var(--line-2); font-size:.89rem;
+    color:var(--ink-2)}
+  footer .wrap{padding:2.6rem 0; display:grid; grid-template-columns:1.2fr 1fr; gap:2rem}
+  @media(max-width:760px){footer .wrap{grid-template-columns:1fr; gap:1.4rem}}
+  footer .name{font-family:var(--serif); font-size:1.1rem; color:var(--ink); font-weight:600}
+  footer .crn{margin-top:.35rem; font-weight:600; color:var(--ink)}
+  footer a{color:var(--ink-2)}
+  .legal{font-size:.78rem; color:var(--ink-3); border-top:1px solid var(--line-2);
+    padding:1.2rem 0 2.2rem; line-height:1.6}
+
+  /* ---------- nota da koko ---------- */
+  .koko{background:#241E1B; color:#CBBDB1; font-size:.92rem}
+  .koko .wrap{padding:clamp(2.6rem,6vw,4rem) 0}
+  .koko h2{color:#fff; font-size:1.5rem; margin-bottom:.9rem}
+  .koko h3{color:#E0A24B; font-size:.76rem; font-weight:600; letter-spacing:.13em;
+    text-transform:uppercase; font-family:var(--sans); margin:2rem 0 .8rem}
+  .koko p{max-width:72ch}
+  .koko ul{margin:0; padding-left:1.1rem; display:grid; gap:.5rem; max-width:72ch}
+  .koko li{line-height:1.6}
+  .koko strong{color:#F6EFE7}
+  .koko .boxes{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-top:1rem}
+  @media(max-width:800px){.koko .boxes{grid-template-columns:1fr}}
+  .koko .box{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+    border-radius:var(--r); padding:1.3rem 1.4rem}
+  .koko .box h4{margin:0 0 .7rem; font-size:.95rem; color:#F6EFE7; font-family:var(--sans);
+    font-weight:600}
+  .skip{position:absolute; left:-9999px}
+</style>
+</head>
+<body>
+
+<!-- ======================= FAIXA DE DEMONSTRAÇÃO ======================= -->
+<div class="demobar">
+  <div class="wrap">
+    <div>
+      <span class="dot"></span><b>Demonstração.</b>
+      Proposta de site criada pela <b>Koko</b> a partir de informação pública.
+      Não é o site oficial de Sarah Pettenati, não foi encomendado por ela e não está indexado em buscadores.
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="phToggle">
+      Destacar o texto de exemplo
+    </label>
+  </div>
+</div>
+
+<!-- ======================= CABEÇALHO ======================= -->
+<header class="topnav">
+  <div class="wrap">
+    <a href="#topo" class="mark">Sarah Pettenati<span>Nutricionista · CRN10-9984</span></a>
+    <nav class="navlinks">
+      <a href="#abordagem">Abordagem</a>
+      <a href="#acompanhamento">Como funciona</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#atendimento">Atendimento</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-wa" href="https://wa.me/5547992420109?text=Oi%2C%20Sarah!%20Vim%20pelo%20site%20e%20quero%20saber%20sobre%20o%20acompanhamento." target="_blank" rel="noopener nofollow">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="topo">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Emagrecimento &amp; Comportamento · Blumenau e online</p>
+      <h1>Aqui você não precisa ser perfeito.</h1>
+      <p class="lead">
+        Acompanhamento nutricional para quem quer emagrecer e já cansou de recomeçar na segunda-feira.
+        O trabalho é entender o seu comportamento com a comida — e construir uma rotina que caiba
+        na sua vida de verdade.
+      </p>
+      <div class="cta">
+        <a class="btn btn-wa" href="https://wa.me/5547992420109?text=Oi%2C%20Sarah!%20Vim%20pelo%20site%20e%20quero%20saber%20sobre%20o%20acompanhamento." target="_blank" rel="noopener nofollow">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#acompanhamento">Como funciona o acompanhamento</a>
+      </div>
+    </div>
+
+    <div class="portrait">
+      <div class="blob"></div>
+      <div class="frame">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.2l1.2-2h8.2l1.2 2h2.2A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-9Z"/>
+          <circle cx="12" cy="12.5" r="3.6"/>
+        </svg>
+        <div class="t1">Espaço para sua foto</div>
+        <div class="t2">Nenhuma foto sua foi usada nesta demonstração. Na versão publicada entra o retrato que você escolher.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FATOS ======================= -->
+<div class="facts">
+  <div class="wrap">
+    <div class="fact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      <div><b>Presencial em Blumenau</b><br>Bairro Velha, sala própria</div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><path d="M8 20.5h8"/><path d="M12 17.5v3"/></svg>
+      <div><b>Atendimento online</b><br>Para quem está fora da cidade ou sem tempo de deslocamento</div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.6a2.8 2.8 0 1 1 3.6 3.9c-.5.3-.8.8-.8 1.4v.3"/><circle cx="12" cy="17.6" r=".9" fill="currentColor" stroke="none"/></svg>
+      <div><b>Somente particular</b><br>Não atendo por convênio</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= CITAÇÃO ======================= -->
+<section class="quote">
+  <div class="wrap">
+    <blockquote>“Pode entrar! Aqui você não precisa ser perfeito.”</blockquote>
+    <cite>Frase que já está na sua bio pública — trouxemos para o site porque é ela que explica o resto da página.</cite>
+  </div>
+</section>
+
+<!-- ======================= A DOBRADIÇA ======================= -->
+<section class="hinge" id="abordagem">
+  <div class="wrap">
+    <p class="eyebrow">A diferença</p>
+    <h2>Nutrição comportamental não é mais uma dieta.</h2>
+    <div class="intro">
+      <p>
+        Você continua recebendo orientação do que comer — isso não desaparece. A diferença é que
+        o trabalho não termina no prato. A gente olha também para o que acontece <em>antes</em> dele:
+        a fome que não é de comida, a culpa depois, a regra de “segunda-feira eu começo”, e o jeito
+        como você se trata quando sai do combinado.
+      </p>
+      <p>
+        É por isso que a primeira conversa é sobre a sua história com comida, e não só sobre um número
+        na balança.
+      </p>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <span class="kicker">O ciclo que você já conhece</span>
+        <h3>A dieta restritiva</h3>
+        <ul>
+          <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg> Uma lista de alimentos proibidos para seguir à risca.</li>
+          <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg> Funciona enquanto você aguenta — e só enquanto você aguenta.</li>
+          <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg> Um deslize vira “eu falhei”, e “eu falhei” vira desistir.</li>
+          <li><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg> No fim, você sabe exatamente o que deveria comer. O problema nunca foi esse.</li>
+        </ul>
+      </div>
+      <div class="col accent">
+        <span class="kicker">O que a gente faz aqui</span>
+        <h3>A abordagem comportamental</h3>
+        <ul>
+          <li><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg> Entender o que dispara a vontade de comer, não só o que está no prato.</li>
+          <li><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg> Construir uma rotina que sobrevive à semana ruim, à viagem e ao aniversário.</li>
+          <li><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg> Tratar a recaída como informação sobre o que ajustar — não como fracasso.</li>
+          <li><svg class="c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg> Mudança no ritmo que você consegue manter depois que o acompanhamento acabar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= COMO FUNCIONA ======================= -->
+<section class="steps" id="acompanhamento">
+  <div class="wrap">
+    <p class="eyebrow">Como funciona</p>
+    <h2>O que acontece, da primeira conversa ao acompanhamento.</h2>
+    <div class="intro">
+      <p>Para você saber no que está entrando antes de marcar.</p>
+    </div>
+
+    <div class="steplist">
+      <div class="step">
+        <div class="n">01</div>
+        <div>
+          <h3>Primeira consulta</h3>
+          <p>
+            A gente conversa sobre a sua rotina, sua história com comida, o que você já tentou e o que
+            aconteceu depois. Faço também a <strong>avaliação antropométrica</strong> — medidas e composição
+            corporal — para ter um ponto de partida objetivo.
+          </p>
+          <p><span class="ph">Duração aproximada de 1 hora, no consultório ou por vídeo.</span></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="n">02</div>
+        <div>
+          <h3>Seu plano</h3>
+          <p>
+            Você sai com um plano alimentar montado para a sua rotina real — o que você cozinha, onde você
+            almoça, quanto tempo você tem. Não é uma folha genérica com os mesmos horários para todo mundo.
+          </p>
+          <p><span class="ph">O plano é enviado em até 3 dias depois da consulta, junto com orientações práticas e lista de compras.</span></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="n">03</div>
+        <div>
+          <h3>Retornos</h3>
+          <p>
+            É aqui que o acompanhamento de verdade acontece. A gente revisa o que funcionou, ajusta o que
+            não encaixou e trabalha o comportamento que apareceu no meio do caminho.
+          </p>
+          <p><span class="ph">Retornos a cada 30 dias, com reavaliação das medidas.</span></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="n">04</div>
+        <div>
+          <h3>Entre uma consulta e outra</h3>
+          <p><span class="ph">Você pode tirar dúvidas pontuais pelo WhatsApp durante o acompanhamento, em horário comercial.</span></p>
+          <p>Porque a dúvida que faz desistir quase nunca aparece no dia da consulta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SERVIÇOS ======================= -->
+<section class="services" id="servicos">
+  <div class="wrap">
+    <p class="eyebrow">Serviços</p>
+    <h2>O que eu atendo</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Consulta nutricional</h3>
+        <p>Primeira avaliação completa: história alimentar, rotina, objetivos e avaliação antropométrica. É o ponto de partida de qualquer acompanhamento.</p>
+      </div>
+      <div class="card">
+        <h3>Acompanhamento</h3>
+        <p>O processo contínuo, com consultas de retorno e ajuste do plano ao longo do tempo. É o formato indicado para quem quer mudança que permanece.</p>
+      </div>
+      <div class="card">
+        <h3>Retorno</h3>
+        <p>Consulta de revisão para quem já é paciente: reavaliação das medidas, ajuste do plano e trabalho do que apareceu desde o último encontro.</p>
+      </div>
+    </div>
+    <p class="note-inline">
+      Atendimento <strong>presencial em Blumenau</strong> ou <strong>online</strong>, nos três casos.
+      Os valores e os horários disponíveis eu te passo no WhatsApp.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= ATENDIMENTO ======================= -->
+<section class="where" id="atendimento">
+  <div class="wrap">
+    <p class="eyebrow">Atendimento</p>
+    <h2>Onde e quando</h2>
+    <div class="grid">
+      <div>
+        <h3>No consultório, em Blumenau</h3>
+        <p class="addr">
+          <strong>Rua Jacó Brueckheimer, 425 — Sala 202</strong><br>
+          Bairro Velha · Blumenau/SC · CEP 89036-250
+        </p>
+        <div class="mapbox">
+          <iframe
+            title="Mapa — Rua Jacó Brueckheimer, Velha, Blumenau/SC"
+            loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-49.0920%2C-26.9178%2C-49.0840%2C-26.9128&amp;layer=mapnik&amp;marker=-26.9153078%2C-49.0879986"></iframe>
+          <div class="mapcap">
+            Mapa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a>.
+            <span class="ph">Ponto aproximado na rua; confirmar a marcação exata do prédio.</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Horários</h3>
+        <div class="phblock" style="margin-bottom:1.8rem">
+          <span class="tag">Horários de exemplo — a confirmar</span>
+          <ul class="hours">
+            <li><span>Segunda a quinta</span><span>8h às 18h</span></li>
+            <li><span>Sexta</span><span>8h às 12h</span></li>
+            <li><span>Sábado e domingo</span><span>Fechado</span></li>
+          </ul>
+        </div>
+
+        <h3>Online, de onde você estiver</h3>
+        <p class="addr" style="margin-bottom:0">
+          A consulta online segue a mesma estrutura da presencial: mesma conversa, mesmo plano,
+          mesmos retornos. <span class="ph">A chamada é por vídeo, e as medidas são orientadas passo a passo para você fazer em casa.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PROVA SOCIAL (RESERVADA) ======================= -->
+<section class="social">
+  <div class="wrap">
+    <div class="phblock">
+      <span class="tag">Espaço reservado — vazio de propósito nesta demonstração</span>
+      <h3>Aqui entram as avaliações das suas pacientes</h3>
+      <p>
+        Você tem <strong>53 avaliações públicas</strong> hoje, e elas estão hospedadas num portal
+        que lista as suas concorrentes logo abaixo. Num site seu, elas trabalham só para você.
+        Deixamos este bloco vazio de propósito: o Código de Ética do CFN tem regras sobre o que
+        pode aparecer em divulgação, e nós não vamos publicar nada no seu nome sem você decidir.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTATO ======================= -->
+<section class="contact" id="contato">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Contato</p>
+      <h2>Vamos conversar?</h2>
+      <p>
+        O jeito mais rápido é o WhatsApp — me conta um pouco do seu momento e eu te explico como
+        funciona o acompanhamento e quais horários eu tenho.
+      </p>
+      <a class="btn btn-wa" href="https://wa.me/5547992420109?text=Oi%2C%20Sarah!%20Vim%20pelo%20site%20e%20quero%20saber%20sobre%20o%20acompanhamento." target="_blank" rel="noopener nofollow">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+        (47) 99242-0109
+      </a>
+      <p class="waline">Ou, se preferir escrever com calma, use o formulário ao lado.</p>
+    </div>
+
+    <form id="contato-form" novalidate>
+      <div class="field">
+        <label for="f-nome">Seu nome</label>
+        <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-contato">WhatsApp ou e-mail</label>
+        <input id="f-contato" name="contato" type="text" autocomplete="tel" required>
+      </div>
+      <div class="field">
+        <label for="f-msg">Como eu posso te ajudar?</label>
+        <textarea id="f-msg" name="mensagem" required></textarea>
+      </div>
+      <p class="lgpd">
+        Ao enviar, você concorda que seus dados sejam usados apenas para responder a este contato.
+        Eles não são compartilhados com terceiros e podem ser apagados a qualquer momento a seu pedido.
+        <a href="#privacidade">Aviso de privacidade</a>.
+      </p>
+      <button class="btn" type="submit">Enviar mensagem</button>
+      <div class="formmsg" id="formmsg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ======================= RODAPÉ ======================= -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="name">Sarah Pettenati</div>
+      <div class="crn">Nutricionista · CRN10-9984</div>
+      <div style="margin-top:.5rem">Antropometrista · Emagrecimento e Comportamento</div>
+    </div>
+    <div>
+      Rua Jacó Brueckheimer, 425 — Sala 202<br>
+      Velha · Blumenau/SC · 89036-250<br>
+      <a href="https://wa.me/5547992420109" target="_blank" rel="noopener nofollow">(47) 99242-0109</a><br>
+      Atendimento presencial e online · Somente particular
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="legal" id="privacidade">
+      <strong>Aviso de privacidade (LGPD).</strong>
+      Os dados enviados pelo formulário de contato (nome, telefone ou e-mail e a mensagem) são usados
+      exclusivamente para responder à sua solicitação e combinar um atendimento. Não são vendidos nem
+      compartilhados com terceiros e não são usados para publicidade. Você pode pedir a correção ou a
+      exclusão dos seus dados a qualquer momento pelo WhatsApp acima.
+      <span class="ph">Responsável pelo tratamento dos dados e canal de contato para pedidos de exclusão — a confirmar com a profissional.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================= NOTA DA KOKO ======================= -->
+<aside class="koko">
+  <div class="wrap">
+    <h2>Nota da Koko sobre esta página</h2>
+    <p>
+      Esta é uma <strong>demonstração</strong>, não um site oficial. Nós a montamos por conta própria,
+      sem encomenda, usando apenas informação que já está publicada em canais públicos. A Sarah Pettenati
+      não participou, não aprovou e não é responsável por nada que está escrito aqui.
+    </p>
+
+    <div class="boxes">
+      <div class="box">
+        <h4>O que é texto de exemplo</h4>
+        <p style="margin:0 0 .7rem">
+          Tudo que está <span class="ph">marcado assim</span> é um texto plausível que escrevemos
+          só para a página não ficar com buraco — <strong>não é informação real sobre o trabalho dela</strong>.
+          Use o botão no topo para destacar todos de uma vez.
+        </p>
+        <ul>
+          <li>Duração da consulta e prazo de entrega do plano</li>
+          <li>Frequência dos retornos</li>
+          <li>Suporte por WhatsApp entre consultas</li>
+          <li>Horários de atendimento</li>
+          <li>Como funcionam as medidas no atendimento online</li>
+          <li>Marcação exata do endereço no mapa</li>
+          <li>Responsável pelo tratamento de dados no aviso de LGPD</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>O que é informação pública verificada</h4>
+        <ul>
+          <li>Nome, registro <strong>CRN10-9984</strong> e formação como antropometrista</li>
+          <li>Posicionamento “Emagrecimento &amp; Comportamento” e a frase da bio</li>
+          <li>Endereço do consultório e CEP</li>
+          <li>WhatsApp público (47) 99242-0109</li>
+          <li>Atendimento presencial e online</li>
+          <li>Atende somente particular, sem convênio</li>
+          <li>Os três serviços listados e as 53 avaliações públicas</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>O que esta página deliberadamente não faz</h3>
+    <ul>
+      <li><strong>Não informa preço</strong> de consulta. O Código de Ética do Nutricionista em vigor (Resolução CFN 599/2018, art. 57) veda usar o valor dos honorários como publicidade.</li>
+      <li><strong>Não publica depoimento de paciente</strong> nem imagem de “antes e depois” (art. 58).</li>
+      <li><strong>Não promete resultado</strong>, exclusividade ou garantia de emagrecimento (art. 56).</li>
+      <li><strong>Não usa nenhuma foto dela</strong>. A foto do perfil dela é dela, e não entra em nada que a gente publique sem autorização.</li>
+      <li><strong>Não está indexada.</strong> A página traz <code>noindex</code> e não está linkada em lugar nenhum.</li>
+      <li><strong>Não está no domínio dela.</strong> Nenhum domínio foi registrado e nada foi publicado em nome dela.</li>
+      <li><strong>O formulário não envia</strong> nesta demonstração. No site publicado ele entrega a mensagem no e-mail dela.</li>
+    </ul>
+
+    <h3>Contato</h3>
+    <p style="margin-bottom:0">
+      Dúvidas sobre esta demonstração, ou pedido para tirá-la do ar: fale com a Koko. A página é
+      removida na hora, sem pergunta.
+    </p>
+  </div>
+</aside>
+
+<script>
+  document.getElementById('phToggle').addEventListener('change', function(e){
+    document.body.classList.toggle('hi', e.target.checked);
+  });
+
+  document.getElementById('contato-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var box = document.getElementById('formmsg');
+    var ok = this.checkValidity();
+    box.textContent = ok
+      ? 'Formulário desativado nesta demonstração — nada foi enviado. No site publicado, esta mensagem chega direto no e-mail da profissional.'
+      : 'Preencha os três campos para ver como o formulário se comporta. (Ele está desativado nesta demonstração.)';
+    box.classList.add('on');
+  });
+</script>
+</body>
+</html>
